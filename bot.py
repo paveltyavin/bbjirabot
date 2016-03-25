@@ -8,15 +8,20 @@ logger = logging.getLogger(__name__)
 
 
 class Bot(object):
+    start_text = """Здравствуйте.
+
+У меня только один интерфейс.
+Просто наберите номер версии релиза, и я напишу вам номера тасков и небольшое описание.
+Например, годится запрос '26'"""
     telegram_to_jira = {}
     pending_telegram_to_jira = set([])
     # Define a few command handlers. These usually take the two arguments bot and
     # update. Error handlers also receive the raised TelegramError object in error.
     def start(self, bot, update):
-        bot.sendMessage(update.message.chat_id, text='Hi!')
+        bot.sendMessage(update.message.chat_id, text=self.start_text)
 
     def help(self, bot, update):
-        bot.sendMessage(update.message.chat_id, text='Help!')
+        bot.sendMessage(update.message.chat_id, text=self.start_text)
 
     def echo(self, bot, update):
         telegram_username = update.message.from_user.name
@@ -71,7 +76,7 @@ class Bot(object):
         dp = updater.dispatcher
 
         # on different commands - answer in Telegram
-        # dp.addTelegramCommandHandler("start", start)
+        dp.addTelegramCommandHandler("start", self.start)
         # dp.addTelegramCommandHandler("help", help)
 
         # on noncommand i.e message - echo the message on Telegram
