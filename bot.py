@@ -27,14 +27,14 @@ class Bot(object):
         if jira_username:
             version_name = update.message.text
             issues = self.a.get_issues(version_name=version_name, username=jira_username)
-            response_text = "\n".join(["{}browse/{} - {}".format(
-                settings.JIRA_URL,
-                issue.key,
-                issue.fields.summary,
-            ) for issue in issues])
-            if response_text == "":
+            if issues:
+                response_text = "\n".join(["{}browse/{} - {}".format(
+                    settings.JIRA_URL,
+                    issue.key,
+                    issue.fields.summary,
+                ) for issue in issues])
+            else:
                 response_text = "Пусто"
-            bot.sendMessage(update.message.chat_id, text=response_text)
         else:
             response_text = 'Ваш телеграм логин не ассоциирован ни с каким jira логином.'
 
