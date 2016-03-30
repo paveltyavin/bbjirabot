@@ -10,14 +10,10 @@ class Api(object):
             server=settings.JIRA_URL,
             basic_auth=(settings.JIRA_USERNAME, settings.JIRA_PASSWORD),
         )
-        self.members = self.get_members(settings.JIRA_GROUP)
         self.project = self.j.project(settings.JIRA_PROJECT)
 
     def get_versions(self):
         return self.j.project_versions(self.project)
-
-    def get_members(self, group_name):
-        return self.j.group_members(group_name)
 
     def get_issues(self, version_name, username):
         if self.versions is None:
@@ -42,8 +38,3 @@ class Api(object):
                 assignee=username,
             )
             return self.j.search_issues(jql)
-
-
-if __name__ == '__main__':
-    a = Api()
-    members = a.get_members('VIP-Developers')

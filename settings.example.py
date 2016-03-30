@@ -2,7 +2,6 @@ JIRA_URL = 'https://jira.action.ru/'  # append slash
 JIRA_USERNAME = 'XXX'
 JIRA_PASSWORD = 'YYY'
 JIRA_PROJECT = 'ZZZ'
-JIRA_GROUP = "GROUP_NAME"
 
 TELEGRAM_TOKEN = 'FFFF'
 
